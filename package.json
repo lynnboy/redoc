@@ -1,0 +1,25 @@
+{
+    "name": "redoc",
+    "displayName": "redoc",
+    "description": "My own 'redoc' language support.",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.55.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "redoc",
+            "aliases": ["redoc", "redoc"],
+            "extensions": [".redoc"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "redoc",
+            "scopeName": "source.redoc",
+            "path": "./syntaxes/redoc.tmLanguage.json"
+        }]
+    }
+}
