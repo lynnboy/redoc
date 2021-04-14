@@ -18,7 +18,7 @@
         }],
         "grammars": [{
             "language": "redoc",
-            "scopeName": "source.redoc",
+            "scopeName": "text.redoc",
             "path": "./syntaxes/redoc.tmLanguage.json"
         }]
     }

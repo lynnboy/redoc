@@ -2,14 +2,51 @@
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "redoc",
 	"patterns": [
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings"
-		}
+		{ "include": "#comment" },
+		{ "include": "#decl_block" },
+		{ "include": "#code" },
+		{ "include": "#langtag" },
+		{ "include": "#ref" },
+		{ "include": "#noteref" }
 	],
 	"repository": {
+		"comment": {
+			"begin": "\\[\\/",
+			"end": "\\/\\]",
+			"name": "comment.block.redoc"
+		},
+		"code": {
+			"begin": "\\[`",
+			"end": "\\]",
+			"name": "markup.code.inline.redoc"
+		},
+		"ref": {
+			"match": "\\[#[a-zA-Z.]+\\]",
+			"name": "markup.ref.redoc"
+		},
+		"noteref": {
+			"match": "\\[#:note(#fn:\\$\\d+)\\]",
+			"captures": {
+				"1": { "name": "markup.ref.redoc" }
+			},
+			"name": "markup.note.redoc"
+		},
+		"decl_block": {
+			"name": "markup.heading",
+			"begin": "\\[(section|chapter|document|\\%)(:[a-zA-Z]+)?(#[a-zA-Z.]+)$",
+			"captures": {
+				"2": { "name": "support.function.redoc" },
+				"3": { "name": "support.class.redoc" }
+			},
+			"end": "\\]",
+			"patterns": [
+				{ "include": "#langtag" },
+				{ "include": "#decl_block" }
+			]
+		},
+		"langtag": {
+			"patterns": [{ "name": "keyword.langtag", "match": "\\[:(|zh_CN|en)\\]" }]
+		},
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.redoc",
@@ -28,5 +65,113 @@
 			]
 		}
 	},
-	"scopeName": "source.redoc"
+	"scopeName": "text.redoc",
+	"scopes": [
+		"emphasis",
+		"strong",
+		"header",
+		"comment",
+		"invalid",
+
+		"constant.language",
+		"constant.numeric",
+		"constant.regexp",
+		"constant.sha.git-rebase",
+
+		"entity.name",
+		"entity.name.function",
+		"entity.name.function.operator",
+		"entity.name.function.preprocessor",
+		"entity.name.label",
+		"entity.name.namespace",
+		"entity.name.type",
+		"entity.name.class",
+		"entity.name.operator.custom-literal",
+		"entity.name.operator.custom-literal.number",
+		"entity.name.operator.custom-literal.string",
+
+		"entity.other.attribute-name",
+		"entity.other.attribute-name.class.css",
+		"entity.other.attribute-name.class.mixin.css",
+		"entity.other.attribute-name.id.css",
+		"entity.other.attribute-name.parent-selector.css",
+		"entity.other.attribute-name.pseudo-class.css",
+		"entity.other.attribute-name.pseudo-element.css",
+		"entity.other.attribute-name.scss",
+		"entity.other.attribute-name.attribute.scss",
+		"entity.other.attribute-name.id",
+
+		"markup.underline",
+		"markup.bold",
+		"markup.heading",
+		"markup.italic",
+		"markup.inline.raw",
+		"markup.inserted",
+		"markup.deleted",
+		"markup.change",
+
+		"source.coffee.embedded",
+		"source.groovy.embedded",
+		"source.css.less",
+
+		"meta.embedded",
+		"meta.preprocessor",
+		"meta.preprocessor.string",
+		"meta.preprocessor.numeric",
+		"meta.preprocessor",
+		"meta.template.expression",
+		"meta.diff.header",
+		"meta.structure.dictionary.key.python",
+
+		"keyword",
+		"keyword.control",
+		"keyword.control.directive",
+		"keyword.operator",
+		"keyword.operator.new",
+		"keyword.operator.delete",
+		"keyword.operator.expression",
+		"keyword.operator.cast",
+		"keyword.operator.sizeof",
+		"keyword.operator.instanceof",
+		"keyword.operator.logical.python",
+		"keyword.other.unit",
+
+		"string",
+		"string.tag",
+		"string.value",
+		"string.regexp",
+
+		"storage",
+		"storage.type",
+		"storage.modifier",
+		"storage.modifier.import.java",
+		"storage.modifier.package.java",
+
+		"support.function.git-rebase",
+		"support.type.property-name",
+		"support.type.vendored.property-name",
+
+		"punctuation.definition.tag",
+		"punctuation.definition.quote.begin.markdown",
+		"punctuation.definition.list.begin.markdown",
+		"punctuation.definition.template-expression.begin",
+		"punctuation.definition.template-expression.end",
+		"punctuation.section.embedded",
+		"punctuation.section.embedded.begin.php",
+		"punctuation.section.embedded.end.php",
+
+		"variable",
+		"variable.css",
+		"variable.scss",
+		"variable.other.less",
+		"variable.language",
+		"variable.language.wildcard.java",
+		"variable.parameter",
+		"variable.other.property",
+		"variable.other.enummember",
+		
+		""
+	],
+	"unused": [
+	]
 }
