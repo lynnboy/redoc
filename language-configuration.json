@@ -26,5 +26,11 @@
         ["(", ")"],
         ["\"", "\""],
         ["'", "'"]
-    ]
+    ],
+    "folding": {
+        "markers": {
+            "start": "^\\[codeblock(\\:synopsis)?\\]|^\\[note:foot(#(\\w+:)?(\\$\\d+)?)?\\]|\\[begin:(example|note)\\]|\\[list(\\:(ol|ul))?\\]",
+            "end": "^\\[(codeblock|note|list):end\\]|^\\[end:(example|note)\\]"
+        }
+    }
 }

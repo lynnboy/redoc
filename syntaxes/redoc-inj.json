@@ -1,22 +1,12 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "redoc",
+	"scopeName": "text.redoc-injection",
+	"injectionSelector": "L:comment.line.double-slash",
 	"patterns": [
-		{ "include": "#comment" },
-		{ "include": "#decl_block" },
-		{ "include": "#region_block_note" },
-		{ "include": "#region_block_example" },
-		{ "include": "#region_footnote" },
 		{ "include": "#inline_code" },
-		{ "include": "#codeblock" },
 		{ "include": "#macro" },
-		{ "include": "#directive" },
 		{ "include": "#langtag" },
-		{ "include": "#blocktag" },
 		{ "include": "#ref" },
-		{ "include": "#var" },
-		{ "include": "#def" },
-		{ "include": "#cite" },
 		{ "include": "#index" }
 	],
 	"repository": {
@@ -28,20 +18,7 @@
 		"inline_code": {
 			"begin": "\\[`",
 			"end": "\\]",
-			"name": "markup.code.inline.redoc",
-			"patterns": [
-				{"include": "#macro"},
-				{"include": "#var"}
-			]
-		},
-		"var": {
-			"begin": "\\[$",
-			"end": "\\]",
-			"name": "markup.texvar.inline.redoc",
-			"patterns": [
-				{"include": "#macro"},
-				{"include": "#inline_code"}
-			]
+			"name": "markup.code.inline.redoc"
 		},
 		"macro": {
 			"begin": "\\[=([a-zA-Z_-]+)",
@@ -57,15 +34,6 @@
 			"captures": {
 				"2": { "name": "support.function.redoc" }
 			}
-		},
-		"cite": {
-			"begin": "\\[cite\\b",
-			"end": "\\]",
-			"name": "markup.cite.redoc",
-			"contentName": "markup.cite.content.redoc",
-			"patterns": [
-				{"include": "#macro"}
-			]
 		},
 		"def": {
 			"begin": "\\[\\+",
@@ -85,7 +53,6 @@
 				"3": { "name": "markup.name.redoc" }
 			},
 			"patterns": [
-				{"include": "#index"},
 				{"include": "#langtag"},
 				{"include": "#inline_code"},
 				{"include": "#subindex"},
@@ -106,7 +73,7 @@
 		},
 		"decl_block": {
 			"name": "markup.heading",
-			"begin": "\\[(section|chapter|document)(:[a-zA-Z]+)?(#[a-zA-Z.]+)?",
+			"begin": "\\[(section|chapter|document)(:[a-zA-Z]+)?(#[a-zA-Z.]+)$",
 			"captures": {
 				"2": { "name": "support.function.redoc" },
 				"3": { "name": "markup.name.redoc" }
@@ -114,18 +81,8 @@
 			"end": "\\]",
 			"patterns": [
 				{ "include": "#langtag" },
-				{ "include": "#macro" },
 				{ "include": "#decl_block" }
 			]
-		},
-		"directive": {
-			"name": "markup.directive",
-			"match": "\\[include(:[a-zA-Z]+)?(@[a-z]+)*(\\s*\b([a-zA-Z._-]+))?\\]",
-			"captures": {
-				"1": { "name": "support.function.redoc" },
-				"2": { "name": "support.class.redoc" },
-				"4": { "name": "support.class.redoc" }
-			}
 		},
 		"region_block_note": {
 			"name": "markup.region.tag.redoc",
@@ -169,7 +126,7 @@
 		"codeblock": {
 			"name": "markup.region.codeblock.redoc",
 			"contentName": "meta.embedded.block.cpp",
-			"begin": "\\[codeblock(:\\w+)?.*\\]",
+			"begin": "\\[codeblock(:\\w+)?",
 			"end": "\\[codeblock:end\\]",
 			"captures": {
 			},
@@ -179,7 +136,7 @@
 		},
 		"langtag": {
 			"name": "keyword.langtag",
-			"match": "\\[:(|zh_CN|en)(@~)?\\]"
+			"match": "\\[\\|?:(|zh_CN|en)(@~)?\\]"
 		},
 		"blocktag": {
 			"name": "keyword.blocktag",
@@ -202,6 +159,5 @@
 				}
 			]
 		}
-	},
-	"scopeName": "text.redoc"
+	}
 }

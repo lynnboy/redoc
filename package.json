@@ -17,9 +17,16 @@
             "configuration": "./language-configuration.json"
         }],
         "grammars": [{
+            "scopeName": "text.redoc-injection",
+            "path": "./syntaxes/redoc-inj.json",
+            "injectTo": ["source.cpp"]
+        }, {
             "language": "redoc",
             "scopeName": "text.redoc",
-            "path": "./syntaxes/redoc.tmLanguage.json"
+            "path": "./syntaxes/redoc.tmLanguage.json",
+            "embeddedLanguages": {
+                "meta.embedded.block.cpp": "cpp"
+            }
         }]
     }
 }
