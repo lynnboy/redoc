@@ -13,6 +13,7 @@
 		{ "include": "#directive" },
 		{ "include": "#langtag" },
 		{ "include": "#blocktag" },
+		{ "include": "#inlinetag" },
 		{ "include": "#ref" },
 		{ "include": "#var" },
 		{ "include": "#def" },
@@ -94,7 +95,7 @@
 			"x":1
 		},
 		"subindex": {
-			"begin": "\\[!([a-zA-Z_-]+)",
+			"begin": "\\[!",
 			"end": "\\]",
 			"name": "markup.index.sub.redoc",
 			"captures": {
@@ -115,12 +116,32 @@
 			"patterns": [
 				{ "include": "#langtag" },
 				{ "include": "#macro" },
-				{ "include": "#decl_block" }
+				{ "include": "#index" },
+				{ "include": "#decl_attribute" }
+			]
+		},
+		"decl_attribute": {
+			"name" :"markup.heading.attribute",
+			"begin": "\\[attribute#\\w+",
+			"end": "\\]",
+			"patterns": [
+				{ "include": "#langtag" },
+				{ "include": "#decl_value" }
+			]
+		},
+		"decl_value": {
+			"name" :"markup.heading.attribute.value",
+			"begin": "\\[value",
+			"end": "\\]",
+			"contentName": "markup.heading.attribute.value",
+			"patterns": [
+				{ "include": "#langtag" },
+				{ "include": "#inlinetag" }
 			]
 		},
 		"directive": {
 			"name": "markup.directive",
-			"match": "\\[include(:[a-zA-Z]+)?(@[a-z]+)*(\\s*\b([a-zA-Z._-]+))?\\]",
+			"match": "\\[include(:[a-zA-Z]+)?(@[a-z]+)*(\\s*\\b([a-zA-Z._-]+))?\\]",
 			"captures": {
 				"1": { "name": "support.function.redoc" },
 				"2": { "name": "support.class.redoc" },
@@ -176,6 +197,10 @@
 			"patterns": [
 				{ "include": "source.cpp"}
 			]
+		},
+		"inlinetag": {
+			"name": "keyword.inlinetag",
+			"match": "\\[(br)\\]"
 		},
 		"langtag": {
 			"name": "keyword.langtag",
