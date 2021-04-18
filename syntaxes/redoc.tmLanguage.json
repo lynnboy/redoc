@@ -8,7 +8,10 @@
 		{ "include": "#region_block_example" },
 		{ "include": "#region_footnote" },
 		{ "include": "#inline_code" },
+		{ "include": "#grammar" },
 		{ "include": "#codeblock" },
+		{ "include": "#codeblock_literal" },
+		{ "include": "#syntax" },
 		{ "include": "#macro" },
 		{ "include": "#directive" },
 		{ "include": "#langtag" },
@@ -18,6 +21,9 @@
 		{ "include": "#var" },
 		{ "include": "#def" },
 		{ "include": "#cite" },
+		{ "include": "#quote" },
+		{ "include": "#url" },
+		{ "include": "#span" },
 		{ "include": "#index" }
 	],
 	"repository": {
@@ -29,28 +35,45 @@
 		"inline_code": {
 			"begin": "\\[`",
 			"end": "\\]",
-			"name": "markup.code.inline.redoc",
+			"name": "markup.inline.tag.redoc",
+			"contentName": "markup.code.inline.redoc",
 			"patterns": [
 				{"include": "#macro"},
+				{"include": "#grammar"},
 				{"include": "#var"}
+			]
+		},
+		"grammar": {
+			"begin": "\\[~(:opt)?",
+			"end": "\\]",
+			"name": "markup.inline.tag.redoc",
+			"contentName": "markup.grammarterm.redoc",
+			"captures": {
+				"1": { "name": "support.function.redoc" }
+			},
+			"patterns": [
 			]
 		},
 		"var": {
 			"begin": "\\[$",
 			"end": "\\]",
-			"name": "markup.texvar.inline.redoc",
+			"name": "markup.inline.tag.redoc",
+			"contentName": "markup.texvar.inline.redoc",
 			"patterns": [
 				{"include": "#macro"},
 				{"include": "#inline_code"}
 			]
 		},
 		"macro": {
-			"begin": "\\[=([a-zA-Z_-]+)",
+			"begin": "\\[=",
 			"end": "\\]",
-			"name": "markup.macro.redoc",
+			"name": "markup.inline.tag.redoc",
+			"contentName": "markup.macro.name.redoc",
 			"captures": {
-				"1": { "name": "markup.macro.name.redoc" }
-			}
+			},
+			"patterns": [
+				{ "match": "`[\\[\\]]", "name": "markup.escape.redoc" }
+			]
 		},
 		"ref": {
 			"match": "\\[#((:note)#)?[a-zA-Z.:$0-9]+\\]",
@@ -62,8 +85,17 @@
 		"cite": {
 			"begin": "\\[cite\\b",
 			"end": "\\]",
-			"name": "markup.cite.redoc",
-			"contentName": "markup.cite.content.redoc",
+			"name": "markup.inline.tag.redoc",
+			"contentName": "markup.cite.redoc",
+			"patterns": [
+				{"include": "#macro"}
+			]
+		},
+		"url": {
+			"begin": "\\[url\\b",
+			"end": "\\]",
+			"name": "markup.inline.tag.redoc",
+			"contentName": "markup.url.redoc",
 			"patterns": [
 				{"include": "#macro"}
 			]
@@ -71,9 +103,20 @@
 		"def": {
 			"begin": "\\[\\+",
 			"end": "\\]",
-			"name": "markup.def.redoc",
+			"name": "markup.inline.tag.redoc",
+			"contentName": "markup.def.redoc",
 			"patterns": [
 				{"include": "#index"}
+			]
+		},
+		"quote": {
+			"begin": "\\[\"",
+			"end": "\\]",
+			"name": "markup.inline.tag.redoc",
+			"contentName": "markup.quote.redoc",
+			"patterns": [
+				{"include": "#index"},
+				{"include": "#macro"}
 			]
 		},
 		"index": {
@@ -89,6 +132,7 @@
 				{"include": "#index"},
 				{"include": "#langtag"},
 				{"include": "#inline_code"},
+				{"include": "#grammar"},
 				{"include": "#subindex"},
 				{"include": "#index_as"}
 			],
@@ -99,7 +143,10 @@
 			"end": "\\]",
 			"name": "markup.index.sub.redoc",
 			"captures": {
-			}
+			},
+			"patterns": [
+				{"include": "#index"}
+			]
 		},
 		"index_as": {
 			"begin": "\\[@",
@@ -151,11 +198,11 @@
 		"region_block_note": {
 			"name": "markup.region.tag.redoc",
 			"contentName": "markup.region.note.redoc",
-			"begin": "\\[begin(:note)\\]",
+			"begin": "\\[begin(:note)(@defnote)?\\]",
 			"end": "\\[end(\\1)\\]",
 			"captures": {
 				"1": { "name": "support.function.redoc" },
-				"2": { "name": "support.function.redoc" }
+				"2": { "name": "support.class.redoc" }
 			},
 			"patterns": [
 				{ "include": "$self" }
@@ -190,12 +237,77 @@
 		"codeblock": {
 			"name": "markup.region.codeblock.redoc",
 			"contentName": "meta.embedded.block.cpp",
-			"begin": "\\[codeblock(:\\w+)?.*\\]",
+			"begin": "\\[codeblock(?!:literal)(:synopsis)?.*\\]",
+			"end": "\\[codeblock:end\\]",
+			"captures": {
+				"1": { "name": "support.function.redoc" }
+			},
+			"patterns": [
+				{ "include": "source.cpp"}
+			]
+		},
+		"codeblock_literal": {
+			"name": "markup.region.codeblock.redoc",
+			"contentName": "meta.embedded.pre",
+			"begin": "\\[codeblock:literal\\s*\\]",
 			"end": "\\[codeblock:end\\]",
 			"captures": {
 			},
 			"patterns": [
-				{ "include": "source.cpp"}
+				{ "include": "#macro" }
+			]
+		},
+		"syntax": {
+			"name": "markup.region.tag.redoc",
+			"contentName": "markup.region.syntax.redoc",
+			"begin": "\\[syntax(:explanation)?.*\\]",
+			"end": "\\[syntax:end\\]",
+			"captures": {
+			},
+			"patterns": [
+				{ "include": "#inline_code" },
+				{ "include": "#grammarrule" },
+				{ "include": "#langtag" },
+				{ "include": "#grammar" }
+			]
+		},
+		"grammarrule": {
+			"name": "markup.region.syntax.redoc.grammarrul",
+			"begin": "\\[rule\\b",
+			"end": "\\[rule:end\\]",
+			"captures": {
+			},
+			"patterns": [
+				{ "include": "#inline_code" },
+				{ "include": "#langtag" },
+				{ "include": "#grammar" },
+				{
+					"begin": "\\[\\|\\s",
+					"end": "\\]",
+					"name": "markup.region.syntax.redoc.grammarrule.alt",
+					"patterns": [
+						{ "include": "#inline_code" },
+						{ "include": "#langtag" },
+						{ "include": "#grammar" },
+						{
+							"match": "[a-zA-Z-]+",
+							"name": "markup.grammarterm.redoc"
+						}
+					]
+				},
+				{
+					"begin": "\\[\\|(:descriptive)",
+					"end": "\\]",
+					"name": "markup.region.syntax.redoc.grammarrule.desc",
+					"captures": {
+						"1": { "name": "support.function.redoc" }
+					},
+					"patterns": [
+						{ "include": "#inline_code" },
+						{ "include": "#langtag" },
+						{ "include": "#grammar" }
+					]
+				}
 			]
 		},
 		"inlinetag": {
@@ -208,7 +320,26 @@
 		},
 		"blocktag": {
 			"name": "keyword.blocktag",
-			"match": "\\[(para|list|item)(@~)?(\\:[a-zA-Z]+)?(#[a-zA-Z.]+)?\\s*\\]"
+			"match": "\\[(para|list|item)(\\:[~a-zA-Z]+)?(@\\w+)?(#[a-zA-Z.]+)?\\s*\\]",
+			"captures": {
+				"2": { "name": "support.function.redoc" },
+				"3": { "name": "support.class.redoc" },
+				"4": { "name": "markup.name.redoc" }
+			},
+			"patterns": [
+			]
+		},
+		"span": {
+			"name": "markup.span",
+			"contentName": "meta.span.inner",
+			"begin": "\\[span(@\\w+)?(:\\w+)?\\b",
+			"end": "\\]",
+			"captures": {
+				"1": { "name": "support.class.redoc" },
+				"2": { "name": "support.function.redoc" }
+			},
+			"patterns": [
+			]
 		},
 		"keywords": {
 			"patterns": [{
