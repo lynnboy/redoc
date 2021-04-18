@@ -145,7 +145,8 @@
 			"captures": {
 			},
 			"patterns": [
-				{"include": "#index"}
+				{"include": "#index"},
+				{"include": "#subindex"}
 			]
 		},
 		"index_as": {
