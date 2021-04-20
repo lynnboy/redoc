@@ -12,6 +12,7 @@
 		{ "include": "#codeblock" },
 		{ "include": "#codeblock_literal" },
 		{ "include": "#syntax" },
+		{ "include": "#table" },
 		{ "include": "#macro" },
 		{ "include": "#directive" },
 		{ "include": "#langtag" },
@@ -55,7 +56,7 @@
 			]
 		},
 		"var": {
-			"begin": "\\[$",
+			"begin": "\\[\\$",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.texvar.inline.redoc",
@@ -76,10 +77,12 @@
 			]
 		},
 		"ref": {
-			"match": "\\[#((:note)#)?[a-zA-Z.:$0-9]+\\]",
+			"match": "\\[#(?:(:note|:tab|:fig)#)?(?:[a-zA-Z.:$0-9]+|(\\[=(\\w+)\\]))\\]",
 			"name": "markup.ref.redoc",
 			"captures": {
-				"2": { "name": "support.function.redoc" }
+				"1": { "name": "support.function.redoc" },
+				"2": { "name": "markup.inline.tag.redoc" },
+				"3": { "name": "markup.macro.name.redoc" }
 			}
 		},
 		"cite": {
@@ -116,11 +119,14 @@
 			"contentName": "markup.quote.redoc",
 			"patterns": [
 				{"include": "#index"},
+				{"include": "#inline_code"},
+				{ "include": "#macro" },
+				{"include": "#grammar"},
 				{"include": "#macro"}
 			]
 		},
 		"index": {
-			"begin": "\\[%(@[a-zA-Z]+)?(:[a-zA-Z]+)?(#[a-zA-Z.]+)?",
+			"begin": "\\[%((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(:[a-zA-Z]+)?(#[a-zA-Z.]+)?",
 			"end": "\\]",
 			"name": "markup.index.redoc",
 			"beginCaptures": {
@@ -132,6 +138,7 @@
 				{"include": "#index"},
 				{"include": "#langtag"},
 				{"include": "#inline_code"},
+				{ "include": "#macro" },
 				{"include": "#grammar"},
 				{"include": "#subindex"},
 				{"include": "#index_as"}
@@ -146,7 +153,12 @@
 			},
 			"patterns": [
 				{"include": "#index"},
-				{"include": "#subindex"}
+				{"include": "#langtag"},
+				{"include": "#inline_code"},
+				{ "include": "#macro" },
+				{"include": "#grammar"},
+				{"include": "#subindex"},
+				{"include": "#index_as"}
 			]
 		},
 		"index_as": {
@@ -189,7 +201,7 @@
 		},
 		"directive": {
 			"name": "markup.directive",
-			"match": "\\[include(:[a-zA-Z]+)?(@[a-z]+)*(\\s*\\b([a-zA-Z._-]+))?\\]",
+			"match": "\\[include(:[a-zA-Z]+)?((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(\\s*\\b([a-zA-Z._-]+))?\\]",
 			"captures": {
 				"1": { "name": "support.function.redoc" },
 				"2": { "name": "support.class.redoc" },
@@ -264,51 +276,92 @@
 			"begin": "\\[syntax(:explanation)?.*\\]",
 			"end": "\\[syntax:end\\]",
 			"captures": {
+				"1": { "name": "support.function.redoc" }
 			},
 			"patterns": [
 				{ "include": "#inline_code" },
+				{ "include": "#macro" },
 				{ "include": "#grammarrule" },
+				{ "include": "#grammarrule_alt" },
+				{ "include": "#grammarrule_alt_desc" },
 				{ "include": "#langtag" },
 				{ "include": "#grammar" }
 			]
 		},
-		"grammarrule": {
-			"name": "markup.region.syntax.redoc.grammarrul",
-			"begin": "\\[rule\\b",
-			"end": "\\[rule:end\\]",
+		"table": {
+			"name": "markup.region.tag.redoc",
+			"contentName": "markup.region.table.redoc",
+			"begin": "\\[table(:listing|:grid)((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[a-zA-Z.:$0-9]+)",
+			"end": "\\[table:end\\]",
 			"captures": {
+				"1": { "name": "support.function.redoc" },
+				"2": { "name": "support.class.redoc" },
+				"3": { "name": "markup.name.redoc" }
 			},
 			"patterns": [
 				{ "include": "#inline_code" },
+				{ "include": "#macro" },
 				{ "include": "#langtag" },
 				{ "include": "#grammar" },
 				{
-					"begin": "\\[\\|\\s",
+					"begin": "\\[\\|((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)",
 					"end": "\\]",
-					"name": "markup.region.syntax.redoc.grammarrule.alt",
-					"patterns": [
-						{ "include": "#inline_code" },
-						{ "include": "#langtag" },
-						{ "include": "#grammar" },
-						{
-							"match": "[a-zA-Z-]+",
-							"name": "markup.grammarterm.redoc"
-						}
-					]
-				},
-				{
-					"begin": "\\[\\|(:descriptive)",
-					"end": "\\]",
-					"name": "markup.region.syntax.redoc.grammarrule.desc",
+					"name": "markup.table.cell.redoc",
+					"contentName": "markup.region.table.redoc",
 					"captures": {
-						"1": { "name": "support.function.redoc" }
+						"2": { "name": "support.class.redoc" }
 					},
 					"patterns": [
 						{ "include": "#inline_code" },
+						{ "include": "#macro" },
 						{ "include": "#langtag" },
 						{ "include": "#grammar" }
 					]
 				}
+			]
+		},
+		"grammarrule": {
+			"name": "markup.region.syntax.redoc.grammarrul",
+			"contentName": "markup.grammarterm.redoc",
+			"begin": "\\[rule(?:\\s|:end|(:descriptive))",
+			"end": "\\]",
+			"captures": {
+				"1": { "name": "support.function.redoc" }
+			},
+			"patterns": [
+				{ "include": "#inline_code" },
+				{ "include": "#macro" },
+				{ "include": "#langtag" },
+				{ "include": "#grammar" }
+			]
+		},
+		"grammarrule_alt": {
+			"begin": "\\[\\|\\s",
+			"end": "\\]",
+			"name": "markup.region.syntax.redoc.grammarrule.alt",
+			"patterns": [
+				{ "include": "#inline_code" },
+				{ "include": "#macro" },
+				{ "include": "#langtag" },
+				{ "include": "#grammar" },
+				{
+					"match": "[a-zA-Z-]+",
+					"name": "markup.grammarterm.redoc"
+				}
+			]
+		},
+		"grammarrule_alt_desc": {
+			"begin": "\\[\\|(:descriptive)",
+			"end": "\\]",
+			"name": "markup.region.syntax.redoc.grammarrule.desc",
+			"captures": {
+				"1": { "name": "support.function.redoc" }
+			},
+			"patterns": [
+				{ "include": "#inline_code" },
+				{ "include": "#macro" },
+				{ "include": "#langtag" },
+				{ "include": "#grammar" }
 			]
 		},
 		"inlinetag": {
@@ -321,7 +374,7 @@
 		},
 		"blocktag": {
 			"name": "keyword.blocktag",
-			"match": "\\[(para|list|item)(\\:[~a-zA-Z]+)?(@\\w+)?(#[a-zA-Z.]+)?\\s*\\]",
+			"match": "\\[(para|list|item)(\\:[~a-zA-Z]+)?((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[a-zA-Z.]+)?\\s*\\]",
 			"captures": {
 				"2": { "name": "support.function.redoc" },
 				"3": { "name": "support.class.redoc" },
@@ -333,7 +386,7 @@
 		"span": {
 			"name": "markup.span",
 			"contentName": "meta.span.inner",
-			"begin": "\\[span(@\\w+)?(:\\w+)?\\b",
+			"begin": "\\[span((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(:\\w+)?\\b",
 			"end": "\\]",
 			"captures": {
 				"1": { "name": "support.class.redoc" },
