@@ -8,6 +8,8 @@
 		{ "include": "#region_block_example" },
 		{ "include": "#region_footnote" },
 		{ "include": "#inline_code" },
+		{ "include": "#placeholder" },
+		{ "include": "#exposid" },
 		{ "include": "#grammar" },
 		{ "include": "#codeblock" },
 		{ "include": "#codeblock_literal" },
@@ -34,7 +36,7 @@
 			"name": "comment.block.redoc"
 		},
 		"inline_code": {
-			"begin": "\\[`(:opt)?",
+			"begin": "\\[`(:opt|:key)?",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.code.inline.redoc",
@@ -43,12 +45,15 @@
 			},
 			"patterns": [
 				{"include": "#macro"},
+				{"include": "#inline_code"},
 				{"include": "#grammar"},
+				{ "include": "#placeholder" },
+				{ "include": "#exposid" },
 				{"include": "#var"}
 			]
 		},
 		"grammar": {
-			"begin": "\\[~(:opt)?",
+			"begin": "\\[~(:opt)?\\b",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.grammarterm.redoc",
@@ -68,6 +73,22 @@
 				{"include": "#inline_code"}
 			]
 		},
+		"placeholder": {
+			"begin": "\\[\\^",
+			"end": "\\]",
+			"name": "markup.inline.tag.redoc",
+			"contentName": "markup.placeholder.inline.redoc",
+			"patterns": [
+			]
+		},
+		"exposid": {
+			"begin": "\\[\\*",
+			"end": "\\]",
+			"name": "markup.inline.tag.redoc",
+			"contentName": "markup.exposid.inline.redoc",
+			"patterns": [
+			]
+		},
 		"macro": {
 			"begin": "\\[=",
 			"end": "\\]",
@@ -80,7 +101,7 @@
 			]
 		},
 		"ref": {
-			"match": "\\[#(?:(:note|:tab|:fig)#)?(?:[a-zA-Z.:$0-9]+|(\\[=(\\w+)\\]))\\]",
+			"match": "\\[#(?:(:note|:tab|:fig)#)?(?:[-a-zA-Z.:$0-9]+|(\\[=(\\w+)\\]))\\]",
 			"name": "markup.ref.redoc",
 			"captures": {
 				"1": { "name": "support.function.redoc" },
@@ -107,10 +128,13 @@
 			]
 		},
 		"def": {
-			"begin": "\\[\\+",
+			"begin": "\\[\\+(:adj)?\\b",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.def.redoc",
+			"captures": {
+				"1": { "name": "support.function.redoc" }
+			},
 			"patterns": [
 				{"include": "#index"}
 			]
@@ -124,13 +148,15 @@
 				{"include": "#index"},
 				{"include": "#var"},
 				{"include": "#inline_code"},
+				{ "include": "#placeholder" },
+				{ "include": "#exposid" },
 				{ "include": "#macro" },
 				{"include": "#grammar"},
 				{"include": "#macro"}
 			]
 		},
 		"index": {
-			"begin": "\\[%((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(:[a-zA-Z]+)?(#[a-zA-Z.]+)?",
+			"begin": "\\[%((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(:[a-zA-Z]+)?(#[-a-zA-Z.]+)?",
 			"end": "\\]",
 			"name": "markup.index.redoc",
 			"beginCaptures": {
@@ -160,6 +186,7 @@
 				{"include": "#langtag"},
 				{"include": "#inline_code"},
 				{ "include": "#macro" },
+				{ "include": "#comment" },
 				{"include": "#grammar"},
 				{"include": "#subindex"},
 				{"include": "#index_as"}
@@ -180,6 +207,7 @@
 			"patterns": [
 				{ "include": "#langtag" },
 				{ "include": "#macro" },
+				{ "include": "#comment" },
 				{ "include": "#index" },
 				{ "include": "#decl_attribute" }
 			]
@@ -254,7 +282,7 @@
 		"codeblock": {
 			"name": "markup.region.codeblock.redoc",
 			"contentName": "meta.embedded.block.cpp",
-			"begin": "\\[codeblock(?!:literal)(:synopsis)?.*\\]",
+			"begin": "\\[codeblock(?!:literal|:notation)(:synopsis)?.*\\]",
 			"end": "\\[codeblock:end\\]",
 			"captures": {
 				"1": { "name": "support.function.redoc" }
@@ -266,12 +294,15 @@
 		"codeblock_literal": {
 			"name": "markup.region.codeblock.redoc",
 			"contentName": "meta.embedded.pre",
-			"begin": "\\[codeblock:literal\\s*\\]",
+			"begin": "\\[codeblock(?::literal|:notation)\\b.*\\]",
 			"end": "\\[codeblock:end\\]",
 			"captures": {
 			},
 			"patterns": [
-				{ "include": "#macro" }
+				{ "include": "#macro" },
+				{ "include": "#exposid" },
+				{ "include": "#var" },
+				{ "include": "#placeholder" }
 			]
 		},
 		"syntax": {
@@ -284,6 +315,7 @@
 			},
 			"patterns": [
 				{ "include": "#inline_code" },
+				{ "include": "#comment" },
 				{ "include": "#macro" },
 				{ "include": "#grammarrule" },
 				{ "include": "#grammarrule_alt" },
@@ -304,6 +336,9 @@
 			},
 			"patterns": [
 				{ "include": "#inline_code" },
+				{ "include": "#comment" },
+				{ "include": "#placeholder" },
+				{ "include": "#exposid" },
 				{ "include": "#macro" },
 				{ "include": "#langtag" },
 				{ "include": "#grammar" },
@@ -319,6 +354,8 @@
 					},
 					"patterns": [
 						{ "include": "#inline_code" },
+						{ "include": "#placeholder" },
+						{ "include": "#exposid" },
 						{ "include": "#macro" },
 						{ "include": "#langtag" },
 						{ "include": "#grammar" }
