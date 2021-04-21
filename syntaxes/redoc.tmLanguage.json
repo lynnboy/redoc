@@ -34,10 +34,13 @@
 			"name": "comment.block.redoc"
 		},
 		"inline_code": {
-			"begin": "\\[`",
+			"begin": "\\[`(:opt)?",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.code.inline.redoc",
+			"captures": {
+				"1": { "name": "support.function.redoc" }
+			},
 			"patterns": [
 				{"include": "#macro"},
 				{"include": "#grammar"},
@@ -119,6 +122,7 @@
 			"contentName": "markup.quote.redoc",
 			"patterns": [
 				{"include": "#index"},
+				{"include": "#var"},
 				{"include": "#inline_code"},
 				{ "include": "#macro" },
 				{"include": "#grammar"},
@@ -303,6 +307,8 @@
 				{ "include": "#macro" },
 				{ "include": "#langtag" },
 				{ "include": "#grammar" },
+				{ "include": "#inlinetag" },
+				{ "match": "\\[-\\]", "name": "markup.table.cell.redoc"},
 				{
 					"begin": "\\[\\|((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)",
 					"end": "\\]",
@@ -323,7 +329,7 @@
 		"grammarrule": {
 			"name": "markup.region.syntax.redoc.grammarrul",
 			"contentName": "markup.grammarterm.redoc",
-			"begin": "\\[rule(?:\\s|:end|(:descriptive))",
+			"begin": "\\[rule(?:\\s|:end|(:descriptive|:oneof))",
 			"end": "\\]",
 			"captures": {
 				"1": { "name": "support.function.redoc" }
@@ -331,6 +337,7 @@
 			"patterns": [
 				{ "include": "#inline_code" },
 				{ "include": "#macro" },
+				{ "include": "#inlinetag" },
 				{ "include": "#langtag" },
 				{ "include": "#grammar" }
 			]
@@ -359,6 +366,7 @@
 			},
 			"patterns": [
 				{ "include": "#inline_code" },
+				{ "include": "#inlinetag" },
 				{ "include": "#macro" },
 				{ "include": "#langtag" },
 				{ "include": "#grammar" }
