@@ -54,7 +54,7 @@
 			]
 		},
 		"inline_code": {
-			"begin": "\\[`(:opt|:key)?",
+			"begin": "\\[`((?::opt|:key){,2})",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.code.inline.redoc",
@@ -72,12 +72,13 @@
 			]
 		},
 		"grammar": {
-			"begin": "\\[~(:opt)?\\b",
+			"begin": "\\[~(:opt)?(@(?:fake|loc|fmt))?\\b",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.grammarterm.redoc",
 			"captures": {
-				"1": { "name": "support.function.redoc" }
+				"1": { "name": "support.function.redoc" },
+				"2": { "name": "support.class.redoc" }
 			},
 			"patterns": [
 			]
@@ -155,7 +156,8 @@
 				"1": { "name": "support.function.redoc" }
 			},
 			"patterns": [
-				{"include": "#index"}
+				{"include": "#index"},
+				{"include": "#inline_code"}
 			]
 		},
 		"quote": {
