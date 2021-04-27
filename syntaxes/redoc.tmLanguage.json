@@ -50,16 +50,21 @@
 				"3": { "name": "markup.name.redoc" }
 			},
 			"patterns": [
-				{ "include": "#escape" }
+				{ "include": "#escape" },
+				{ "include": "#macro" },
+				{ "include": "#grammar" },
+				{ "include": "#subindex" },
+				{ "include": "#inline_code" }
 			]
 		},
 		"inline_code": {
-			"begin": "\\[`((?::opt|:key){,2})",
+			"begin": "\\[`((?::opt|:key|:defn){,2}\\b)(@lib\\b)?",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.code.inline.redoc",
 			"captures": {
-				"1": { "name": "support.function.redoc" }
+				"1": { "name": "support.function.redoc" },
+				"2": { "name": "support.class.redoc" }
 			},
 			"patterns": [
 				{ "include": "#escape" },
@@ -188,6 +193,7 @@
 			"patterns": [
 				{ "include": "#escape" },
 				{"include": "#index"},
+				{ "include": "#exposid" },
 				{"include": "#langtag"},
 				{"include": "#inline_code"},
 				{ "include": "#macro" },
@@ -205,6 +211,7 @@
 			},
 			"patterns": [
 				{ "include": "#escape" },
+				{ "include": "#exposid" },
 				{"include": "#index"},
 				{"include": "#langtag"},
 				{"include": "#inline_code"},
@@ -229,6 +236,9 @@
 			"end": "\\]",
 			"patterns": [
 				{ "include": "#langtag" },
+				{ "include": "#exposid" },
+				{ "include": "#inline_code" },
+				{ "include": "#grammar" },
 				{ "include": "#macro" },
 				{ "include": "#comment" },
 				{ "include": "#index" },
@@ -340,6 +350,8 @@
 				{ "include": "#inline_code" },
 				{ "include": "#comment" },
 				{ "include": "#macro" },
+				{ "include": "#placeholder" },
+				{ "include": "#exposid" },
 				{ "include": "#grammarrule" },
 				{ "include": "#grammarrule_alt" },
 				{ "include": "#grammarrule_alt_desc" },
