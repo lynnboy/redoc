@@ -31,7 +31,7 @@
 	],
 	"repository": {
 		"escape": {
-			"match": "`\\[|`\\]|``",
+			"match": "`\\[|`\\]|``|`,",
 			"name": "markup.escape.redoc"
 		},
 		"comment": {
@@ -40,7 +40,7 @@
 			"name": "comment.block.redoc"
 		},
 		"eval": {
-			"begin": "\\[\\?([_a-zA-Z][_a-zA-Z0-9]*)((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[-a-zA-Z.]+)?",
+			"begin": "\\[\\?([_a-zA-Z][_a-zA-Z0-9]*)((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[-a-zA-Z.:\\$]+)?",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.eval.content.redoc",
@@ -54,11 +54,13 @@
 				{ "include": "#macro" },
 				{ "include": "#grammar" },
 				{ "include": "#subindex" },
+				{ "include": "#placeholder" },
+				{ "include": "#exposid" },
 				{ "include": "#inline_code" }
 			]
 		},
 		"inline_code": {
-			"begin": "\\[`((?::opt|:key|:defn){,2}\\b)(@lib\\b)?",
+			"begin": "\\[`((?::opt|:key|:defn){,2})(@lib)?(?=\\b|\\W)",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.code.inline.redoc",
@@ -94,7 +96,11 @@
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.texvar.inline.redoc",
 			"patterns": [
+				{ "include": "#escape" },
 				{"include": "#macro"},
+				{ "include": "#placeholder" },
+				{ "include": "#exposid" },
+				{ "include": "#eval" },
 				{"include": "#inline_code"}
 			]
 		},
@@ -115,13 +121,15 @@
 			]
 		},
 		"macro": {
-			"begin": "\\[=",
+			"begin": "\\[=([a-zA-Z_][a-zA-Z0-9_]*|'|-|--|`[|`])",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
-			"contentName": "markup.macro.name.redoc",
+			"contentName": "markup.macro.content.redoc",
 			"captures": {
+				"1": { "name": "markup.macro.name.redoc" }
 			},
 			"patterns": [
+				{ "match": "[(,)]", "name": "markup.macro.name.redoc" },
 				{ "include": "#escape" }
 			]
 		},
