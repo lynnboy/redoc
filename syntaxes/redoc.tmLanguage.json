@@ -161,8 +161,11 @@
 				"1": { "name": "support.function.redoc" }
 			},
 			"patterns": [
-				{"include": "#index"},
-				{"include": "#inline_code"}
+				{ "include": "#index" },
+				{ "include": "#macro" },
+				{ "include": "#inline_code" },
+				{ "include": "#placeholder" },
+				{ "include": "#grammar" }
 			]
 		},
 		"quote": {
@@ -171,14 +174,14 @@
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.quote.redoc",
 			"patterns": [
-				{"include": "#index"},
-				{"include": "#var"},
-				{"include": "#inline_code"},
+				{ "include": "#index" },
+				{ "include": "#var" },
+				{ "include": "#inline_code" },
 				{ "include": "#placeholder" },
 				{ "include": "#exposid" },
 				{ "include": "#macro" },
-				{"include": "#grammar"},
-				{"include": "#macro"}
+				{ "include": "#grammar" },
+				{ "include": "#macro" }
 			]
 		},
 		"index": {
