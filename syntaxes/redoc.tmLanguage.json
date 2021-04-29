@@ -105,10 +105,14 @@
 			]
 		},
 		"placeholder": {
-			"begin": "\\[\\^",
+			"begin": "\\[\\^(:(?:oldconcept|newoldconcept|oc|newoc))?(@def)?\\b",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.placeholder.inline.redoc",
+			"captures": {
+				"1": { "name": "support.function.redoc" },
+				"2": { "name": "support.class.redoc" }
+			},
 			"patterns": [
 			]
 		},
@@ -205,6 +209,7 @@
 				{ "include": "#escape" },
 				{"include": "#index"},
 				{ "include": "#exposid" },
+				{ "include": "#placeholder" },
 				{"include": "#langtag"},
 				{"include": "#inline_code"},
 				{ "include": "#macro" },
@@ -224,6 +229,7 @@
 				{ "include": "#escape" },
 				{ "include": "#exposid" },
 				{"include": "#index"},
+				{ "include": "#placeholder" },
 				{"include": "#langtag"},
 				{"include": "#inline_code"},
 				{ "include": "#macro" },
@@ -249,6 +255,8 @@
 				{ "include": "#langtag" },
 				{ "include": "#exposid" },
 				{ "include": "#inline_code" },
+				{ "include": "#eval" },
+				{ "include": "#placeholder" },
 				{ "include": "#grammar" },
 				{ "include": "#macro" },
 				{ "include": "#comment" },
