@@ -2,6 +2,7 @@
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "redoc",
 	"patterns": [
+		{ "include": "#escape" },
 		{ "include": "#comment" },
 		{ "include": "#decl_block" },
 		{ "include": "#region_block_note" },
@@ -129,7 +130,7 @@
 			]
 		},
 		"macro": {
-			"begin": "\\[=([a-zA-Z_][a-zA-Z0-9_]*|'|-|--|`[|`])",
+			"begin": "\\[=([a-zA-Z_][a-zA-Z0-9_]*|'|-{1,2}|`[|`])",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.macro.content.redoc",
@@ -257,6 +258,7 @@
 			"end": "\\]",
 			"patterns": [
 				{ "include": "#langtag" },
+				{ "include": "#ref" },
 				{ "include": "#exposid" },
 				{ "include": "#inline_code" },
 				{ "include": "#eval" },
@@ -351,7 +353,7 @@
 		"codeblock": {
 			"name": "markup.region.codeblock.redoc",
 			"contentName": "meta.embedded.block.cpp",
-			"begin": "\\[codeblock(?!:literal|:notation)(:synopsis|:declaration)?.*\\]",
+			"begin": "\\[codeblock(?!:literal|:notation|:output)(:synopsis|:declaration)?.*\\]",
 			"end": "\\[codeblock:end\\]",
 			"captures": {
 				"1": { "name": "support.function.redoc" }
@@ -363,9 +365,10 @@
 		"codeblock_literal": {
 			"name": "markup.region.codeblock.redoc",
 			"contentName": "meta.embedded.pre",
-			"begin": "\\[codeblock(?::literal|:notation)\\b.*\\]",
+			"begin": "\\[codeblock(:literal|:notation|:output)\\b.*\\]",
 			"end": "\\[codeblock:end\\]",
 			"captures": {
+				"1": { "name": "support.function.redoc" }
 			},
 			"patterns": [
 				{ "include": "#macro" },
@@ -416,12 +419,12 @@
 				{ "include": "#inlinetag" },
 				{ "match": "\\[-\\]", "name": "markup.table.cell.redoc"},
 				{
-					"begin": "\\[\\|((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)",
+					"begin": "\\[\\|((?:@\\w+(?:=[^@#\\s]+)?)*)",
 					"end": "\\]",
 					"name": "markup.table.cell.redoc",
 					"contentName": "markup.region.table.redoc",
 					"captures": {
-						"2": { "name": "support.class.redoc" }
+						"1": { "name": "support.class.redoc" }
 					},
 					"patterns": [
 						{ "include": "#inline_code" },
