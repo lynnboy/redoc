@@ -60,7 +60,7 @@
 			]
 		},
 		"inline_code": {
-			"begin": "\\[`((?::opt|:key|:defn){,2})(@lib)?(?=\\b|\\W)",
+			"begin": "\\[`((?::opt|:key|:c){,2})((?:@def|@lib){,2})?(?=\\b|\\W)",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.code.inline.redoc",
@@ -117,10 +117,14 @@
 			]
 		},
 		"exposid": {
-			"begin": "\\[\\*",
+			"begin": "\\[\\*((?::c)?)((?:@def)?)(?=\\b|\\W)",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.exposid.inline.redoc",
+			"captures": {
+				"1": { "name": "support.function.redoc" },
+				"2": { "name": "support.class.redoc" }
+			},
 			"patterns": [
 			]
 		},
@@ -318,6 +322,19 @@
 				{ "include": "$self" }
 			]
 		},
+		"region_block_desc": {
+			"name": "markup.region.tag.redoc",
+			"contentName": "markup.region.description.redoc",
+			"begin": "\\[begin(:description)\\]",
+			"end": "\\[end(\\1)\\]",
+			"captures": {
+				"1": { "name": "support.function.redoc" },
+				"2": { "name": "support.function.redoc" }
+			},
+			"patterns": [
+				{ "include": "$self" }
+			]
+		},
 		"region_footnote": {
 			"name": "markup.region.tag.redoc",
 			"contentName": "markup.region.footnote.redoc",
@@ -334,7 +351,7 @@
 		"codeblock": {
 			"name": "markup.region.codeblock.redoc",
 			"contentName": "meta.embedded.block.cpp",
-			"begin": "\\[codeblock(?!:literal|:notation)(:synopsis)?.*\\]",
+			"begin": "\\[codeblock(?!:literal|:notation)(:synopsis|:declaration)?.*\\]",
 			"end": "\\[codeblock:end\\]",
 			"captures": {
 				"1": { "name": "support.function.redoc" }
@@ -473,7 +490,7 @@
 		},
 		"blocktag": {
 			"name": "keyword.blocktag",
-			"match": "\\[(para|list|item)(\\:[~a-zA-Z]+)?((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[a-zA-Z.]+)?\\s*\\]",
+			"match": "\\[(para|list|item|div)(\\:[~a-zA-Z]+)?((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[a-zA-Z.]+)?\\s*\\]",
 			"captures": {
 				"2": { "name": "support.function.redoc" },
 				"3": { "name": "support.class.redoc" },

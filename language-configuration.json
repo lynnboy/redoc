@@ -29,8 +29,8 @@
     ],
     "folding": {
         "markers": {
-            "start": "^\\[table\\:(listing|grid)|\\[syntax(\\:explanation|notation)?\\]|^\\[codeblock(\\:synopsis)?\\]|^\\[note:foot(#(\\w+:)?(\\$\\d+)?)?\\]|\\[begin:(example|note)\\]|\\[list(\\:(ol|ul))?(@\\w+)?\\]",
-            "end": "^\\[(table|syntax|codeblock|note|list):end\\]|^\\[end:(example|note)\\]"
+            "start": "^\\[table\\:(listing|grid)|\\[syntax(\\:explanation|notation)?\\]|^\\[codeblock(:\\w+)?\\]|^\\[note:foot(#(\\w+:)?(\\$\\d+)?)?\\]|\\[begin:(example|note)\\]|\\[list(\\:(ol|ul))?(@\\w+)?\\]|\\[div:(description)\\]",
+            "end": "^\\[(table|syntax|codeblock|note|list|div):end\\]|^\\[end:(example|note)\\]"
         }
     }
 }
