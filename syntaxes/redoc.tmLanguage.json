@@ -416,6 +416,7 @@
 				{ "include": "#escape" },
 				{ "include": "#decl_block" },
 				{ "include": "#var" },
+				{ "include": "#ref" },
 				{ "include": "#index" },
 				{ "include": "#placeholder" },
 				{ "include": "#exposid" },
@@ -469,7 +470,7 @@
 				{ "include": "#langtag" },
 				{ "include": "#grammar" },
 				{
-					"match": "[a-zA-Z-]+",
+					"match": "[a-zA-Z_-]+",
 					"name": "markup.grammarterm.redoc"
 				}
 			]
