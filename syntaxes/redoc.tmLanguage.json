@@ -250,7 +250,7 @@
 		},
 		"decl_block": {
 			"name": "markup.heading",
-			"begin": "\\[(section|chapter|document)(:[a-zA-Z]+)?(#[a-zA-Z.]+)?",
+			"begin": "\\[(section|chapter|document)(:[a-zA-Z]+)?(#[^@#\\s]+)?",
 			"captures": {
 				"2": { "name": "support.function.redoc" },
 				"3": { "name": "markup.name.redoc" }
@@ -411,22 +411,10 @@
 				"3": { "name": "markup.name.redoc" }
 			},
 			"patterns": [
-				{ "include": "#inline_code" },
-				{ "include": "#comment" },
-				{ "include": "#escape" },
-				{ "include": "#decl_block" },
-				{ "include": "#var" },
-				{ "include": "#ref" },
-				{ "include": "#index" },
-				{ "include": "#placeholder" },
-				{ "include": "#exposid" },
-				{ "include": "#macro" },
-				{ "include": "#langtag" },
-				{ "include": "#grammar" },
-				{ "include": "#inlinetag" },
+				{ "include": "$self" },
 				{ "match": "\\[-\\]", "name": "markup.table.cell.redoc"},
 				{
-					"begin": "\\[\\|((?:@\\w+(?:=[^@#\\s]+)?)*)",
+					"begin": "\\[\\|((?:@\\w+(?:=[^@#\\s\\]]+)?)*)",
 					"end": "\\]",
 					"name": "markup.table.cell.redoc",
 					"contentName": "markup.region.table.redoc",
@@ -500,13 +488,24 @@
 		},
 		"blocktag": {
 			"name": "keyword.blocktag",
-			"match": "\\[(para|list|item|div)(\\:[~a-zA-Z]+)?((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[a-zA-Z.]+)?\\s*\\]",
+			"begin": "\\[(para|list|item|div)(\\:[~a-zA-Z]+)?((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[a-zA-Z.]+)?",
+			"end": "\\]",
 			"captures": {
 				"2": { "name": "support.function.redoc" },
 				"3": { "name": "support.class.redoc" },
 				"4": { "name": "markup.name.redoc" }
 			},
 			"patterns": [
+				{ "include": "#langtag" },
+				{ "include": "#ref" },
+				{ "include": "#exposid" },
+				{ "include": "#inline_code" },
+				{ "include": "#eval" },
+				{ "include": "#placeholder" },
+				{ "include": "#grammar" },
+				{ "include": "#macro" },
+				{ "include": "#comment" },
+				{ "include": "#index" }
 			]
 		},
 		"span": {
@@ -519,6 +518,16 @@
 				"2": { "name": "support.function.redoc" }
 			},
 			"patterns": [
+				{ "include": "#langtag" },
+				{ "include": "#ref" },
+				{ "include": "#exposid" },
+				{ "include": "#inline_code" },
+				{ "include": "#eval" },
+				{ "include": "#placeholder" },
+				{ "include": "#grammar" },
+				{ "include": "#macro" },
+				{ "include": "#comment" },
+				{ "include": "#index" }
 			]
 		},
 		"keywords": {
