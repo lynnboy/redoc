@@ -291,7 +291,7 @@
 		},
 		"directive": {
 			"name": "markup.directive",
-			"match": "\\[include(:[a-zA-Z]+)?((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(\\s*\\b([a-zA-Z._-]+))?\\]",
+			"match": "\\[include(:[a-zA-Z]+)?((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(\\s*\\b([a-zA-Z0-9.-]+))?\\]",
 			"captures": {
 				"1": { "name": "support.function.redoc" },
 				"2": { "name": "support.class.redoc" },
@@ -301,11 +301,12 @@
 		"region_block_note": {
 			"name": "markup.region.tag.redoc",
 			"contentName": "markup.region.note.redoc",
-			"begin": "\\[begin(:note)(@defnote)?\\]",
+			"begin": "\\[begin(:note)(@defnote)?(\\b[\\w\\s]+)?\\s*\\]",
 			"end": "\\[end(\\1)\\]",
 			"captures": {
 				"1": { "name": "support.function.redoc" },
-				"2": { "name": "support.class.redoc" }
+				"2": { "name": "support.class.redoc" },
+				"3": { "name": "markup.region.note.redoc" }
 			},
 			"patterns": [
 				{ "include": "$self" }
