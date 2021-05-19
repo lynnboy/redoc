@@ -424,6 +424,7 @@
 					},
 					"patterns": [
 						{ "include": "#inline_code" },
+						{ "include": "#inlinetag" },
 						{ "include": "#placeholder" },
 						{ "include": "#exposid" },
 						{ "include": "#macro" },
@@ -436,10 +437,11 @@
 		"grammarrule": {
 			"name": "markup.region.syntax.redoc.grammarrul",
 			"contentName": "markup.grammarterm.redoc",
-			"begin": "\\[rule(?:\\s|:end|(:descriptive|:oneof))",
+			"begin": "\\[rule(?:end|(?:(:descriptive|:oneof)?(@\\w+)))",
 			"end": "\\]",
 			"captures": {
-				"1": { "name": "support.function.redoc" }
+				"1": { "name": "support.function.redoc" },
+				"2": { "name": "support.class.redoc" }
 			},
 			"patterns": [
 				{ "include": "#inline_code" },
