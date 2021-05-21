@@ -439,7 +439,7 @@
 		"math": {
 			"name": "markup.region.tag.redoc",
 			"contentName": "markup.region.math.redoc",
-			"begin": "\\[math\\]",
+			"begin": "\\[math(:aligned)?\\]",
 			"end": "\\[math:end\\]",
 			"captures": {
 			},
