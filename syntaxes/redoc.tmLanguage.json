@@ -442,6 +442,7 @@
 			"begin": "\\[math(:aligned)?\\]",
 			"end": "\\[math:end\\]",
 			"captures": {
+				"1": { "name": "support.function.redoc" }
 			},
 			"patterns": [
 				{ "include": "$self" }
