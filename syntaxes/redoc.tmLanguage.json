@@ -54,6 +54,7 @@
 			"patterns": [
 				{ "include": "#escape" },
 				{ "include": "#macro" },
+				{ "include": "#span" },
 				{ "include": "#grammar" },
 				{ "include": "#subindex" },
 				{ "include": "#placeholder" },
