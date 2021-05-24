@@ -220,6 +220,7 @@
 				{"include": "#langtag"},
 				{"include": "#inline_code"},
 				{ "include": "#macro" },
+				{ "include": "#var" },
 				{"include": "#grammar"},
 				{"include": "#subindex"},
 				{"include": "#index_as"}
@@ -240,6 +241,7 @@
 				{"include": "#langtag"},
 				{"include": "#inline_code"},
 				{ "include": "#macro" },
+				{ "include": "#var" },
 				{ "include": "#comment" },
 				{"include": "#grammar"},
 				{"include": "#subindex"},
@@ -376,6 +378,7 @@
 			"patterns": [
 				{ "include": "#macro" },
 				{ "include": "#exposid" },
+				{ "include": "#escape" },
 				{ "include": "#var" },
 				{ "include": "#placeholder" }
 			]
@@ -537,6 +540,7 @@
 			"patterns": [
 				{ "include": "#langtag" },
 				{ "include": "#ref" },
+				{ "include": "#var" },
 				{ "include": "#exposid" },
 				{ "include": "#inline_code" },
 				{ "include": "#eval" },
