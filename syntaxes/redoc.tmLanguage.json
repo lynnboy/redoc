@@ -82,7 +82,7 @@
 			]
 		},
 		"grammar": {
-			"begin": "\\[~(:opt)?(@(?:fake|loc|fmt|path))?\\b",
+			"begin": "\\[~(:opt)?(@(?:fake|loc|fmt|path|re))?\\b",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.grammarterm.redoc",
@@ -377,6 +377,7 @@
 			},
 			"patterns": [
 				{ "include": "#macro" },
+				{ "include": "#span" },
 				{ "include": "#exposid" },
 				{ "include": "#escape" },
 				{ "include": "#var" },
