@@ -63,7 +63,7 @@
 			]
 		},
 		"inline_code": {
-			"begin": "\\[`((?::opt|:key|:c){,2})((?:@def|@lib){,2})?(?=\\b|\\W)",
+			"begin": "\\[`((?::opt|:key|:c|:cname){,2})((?:@def|@lib){,2})?(?=\\b|\\W)",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.code.inline.redoc",
