@@ -145,7 +145,7 @@
 			]
 		},
 		"ref": {
-			"match": "\\[#(?:(:note|:tab|:fig)#)?(?:[-a-zA-Z.:$0-9]+|(\\[=(\\w+)\\]))\\]",
+			"match": "\\[#(?:(:note|:tab|:fig|:fn)#)?(?:[-a-zA-Z.:$0-9]*|(\\[=(\\w+)\\]))\\]",
 			"name": "markup.ref.redoc",
 			"captures": {
 				"1": { "name": "support.function.redoc" },
@@ -159,6 +159,7 @@
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.cite.redoc",
 			"patterns": [
+				{"include": "#ref"},
 				{"include": "#macro"}
 			]
 		},
@@ -181,6 +182,7 @@
 			},
 			"patterns": [
 				{ "include": "#index" },
+				{ "include": "#subindex" },
 				{ "include": "#macro" },
 				{ "include": "#inline_code" },
 				{ "include": "#placeholder" },
@@ -346,7 +348,7 @@
 		"region_footnote": {
 			"name": "markup.region.tag.redoc",
 			"contentName": "markup.region.footnote.redoc",
-			"begin": "\\[note(:foot)(#[a-zA-Z.:$0-9]+)\\]",
+			"begin": "\\[note(:foot)(#[a-zA-Z.:$0-9]+)?\\]",
 			"end": "\\[note:end\\]",
 			"captures": {
 				"1": { "name": "support.function.redoc" },
