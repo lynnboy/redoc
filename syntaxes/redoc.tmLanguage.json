@@ -145,7 +145,7 @@
 			]
 		},
 		"ref": {
-			"match": "\\[#(?:(:note|:tab|:fig|:fn)#)?(?:[-a-zA-Z.:$0-9]*|(\\[=(\\w+)\\]))\\]",
+			"match": "\\[#(?:(:note|:tab|:fig|:fn))?#?(?:[-a-zA-Z.:$0-9]*|(\\[=(\\w+)\\]))\\]",
 			"name": "markup.ref.redoc",
 			"captures": {
 				"1": { "name": "support.function.redoc" },
