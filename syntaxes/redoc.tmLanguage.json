@@ -131,6 +131,29 @@
 			"patterns": [
 			]
 		},
+		"span": {
+			"name": "markup.span",
+			"contentName": "meta.span.inner",
+			"begin": "\\[(?:span|&)((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(:\\w+)?\\b",
+			"end": "\\]",
+			"captures": {
+				"1": { "name": "support.class.redoc" },
+				"2": { "name": "support.function.redoc" }
+			},
+			"patterns": [
+				{ "include": "#langtag" },
+				{ "include": "#ref" },
+				{ "include": "#var" },
+				{ "include": "#exposid" },
+				{ "include": "#inline_code" },
+				{ "include": "#eval" },
+				{ "include": "#placeholder" },
+				{ "include": "#grammar" },
+				{ "include": "#macro" },
+				{ "include": "#comment" },
+				{ "include": "#index" }
+			]
+		},
 		"macro": {
 			"begin": "\\[=([a-zA-Z_][a-zA-Z0-9_]*|[',]|-{1,2})",
 			"end": "\\]",
@@ -523,29 +546,6 @@
 			"patterns": [
 				{ "include": "#langtag" },
 				{ "include": "#ref" },
-				{ "include": "#exposid" },
-				{ "include": "#inline_code" },
-				{ "include": "#eval" },
-				{ "include": "#placeholder" },
-				{ "include": "#grammar" },
-				{ "include": "#macro" },
-				{ "include": "#comment" },
-				{ "include": "#index" }
-			]
-		},
-		"span": {
-			"name": "markup.span",
-			"contentName": "meta.span.inner",
-			"begin": "\\[span((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(:\\w+)?\\b",
-			"end": "\\]",
-			"captures": {
-				"1": { "name": "support.class.redoc" },
-				"2": { "name": "support.function.redoc" }
-			},
-			"patterns": [
-				{ "include": "#langtag" },
-				{ "include": "#ref" },
-				{ "include": "#var" },
 				{ "include": "#exposid" },
 				{ "include": "#inline_code" },
 				{ "include": "#eval" },
