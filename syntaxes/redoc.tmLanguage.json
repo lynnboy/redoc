@@ -371,7 +371,7 @@
 		"region_footnote": {
 			"name": "markup.region.tag.redoc",
 			"contentName": "markup.region.footnote.redoc",
-			"begin": "\\[note(:foot)(#[a-zA-Z.:$0-9]+)?\\]",
+			"begin": "\\[note(:foot)(#[-a-zA-Z.:$0-9]+)?\\]",
 			"end": "\\[note:end\\]",
 			"captures": {
 				"1": { "name": "support.function.redoc" },
@@ -436,7 +436,7 @@
 		"table": {
 			"name": "markup.region.tag.redoc",
 			"contentName": "markup.region.table.redoc",
-			"begin": "\\[table(:listing|:grid)((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[a-zA-Z.:$0-9]+)",
+			"begin": "\\[table(:listing|:grid)((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[-a-zA-Z.:$0-9]+)",
 			"end": "\\[table:end\\]",
 			"captures": {
 				"1": { "name": "support.function.redoc" },
@@ -536,7 +536,7 @@
 		},
 		"blocktag": {
 			"name": "keyword.blocktag",
-			"begin": "\\[(para|list|item|div)(\\:[~a-zA-Z]+)?((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[a-zA-Z.:$0-9]+)?",
+			"begin": "\\[(para|list|item|div)(\\:[~a-zA-Z]+)?((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[-a-zA-Z.:$0-9]+)?",
 			"end": "\\]",
 			"captures": {
 				"2": { "name": "support.function.redoc" },
