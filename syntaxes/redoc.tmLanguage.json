@@ -42,7 +42,7 @@
 			"name": "comment.block.redoc"
 		},
 		"eval": {
-			"begin": "\\[\\?([_a-zA-Z][_a-zA-Z0-9]*)((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[-a-zA-Z.:\\$]+)?",
+			"begin": "\\[\\?([_a-zA-Z][_a-zA-Z0-9]*)((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[-a-zA-Z0-9.:\\$]+)?",
 			"end": "\\]",
 			"name": "markup.inline.tag.redoc",
 			"contentName": "markup.eval.content.redoc",
@@ -229,7 +229,7 @@
 			]
 		},
 		"index": {
-			"begin": "\\[%(:[a-zA-Z]+)?((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[-a-zA-Z.]+)?",
+			"begin": "\\[%(:[a-zA-Z]+)?((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[-a-zA-Z.:$0-9]+)?",
 			"end": "\\]",
 			"name": "markup.index.redoc",
 			"beginCaptures": {
@@ -536,7 +536,7 @@
 		},
 		"blocktag": {
 			"name": "keyword.blocktag",
-			"begin": "\\[(para|list|item|div)(\\:[~a-zA-Z]+)?((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[a-zA-Z.]+)?",
+			"begin": "\\[(para|list|item|div)(\\:[~a-zA-Z]+)?((?:@(?:\\w+)(?:=(?:[^@#\\s]+))?)*)(#[a-zA-Z.:$0-9]+)?",
 			"end": "\\]",
 			"captures": {
 				"2": { "name": "support.function.redoc" },
