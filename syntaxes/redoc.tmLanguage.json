@@ -168,13 +168,12 @@
 			]
 		},
 		"ref": {
-			"match": "\\[#(?:(:note|:tab|:fig|:fn))?((?:@def)?)#?(?:[-a-zA-Z.:$0-9]*|(\\[=(\\w+)\\]))\\]",
+			"match": "\\[#(?:(:note|:tab|:fig|:fn))?#?(?:[-a-zA-Z.:$0-9]*|(\\[=(\\w+)\\]))\\]",
 			"name": "markup.ref.redoc",
 			"captures": {
 				"1": { "name": "support.function.redoc" },
-				"2": { "name": "support.class.redoc" },
-				"3": { "name": "markup.inline.tag.redoc" },
-				"4": { "name": "markup.macro.name.redoc" }
+				"2": { "name": "markup.inline.tag.redoc" },
+				"3": { "name": "markup.macro.name.redoc" }
 			}
 		},
 		"cite": {
@@ -332,7 +331,7 @@
 		"region_block_note": {
 			"name": "markup.region.tag.redoc",
 			"contentName": "markup.region.note.redoc",
-			"begin": "\\[begin(:note)(@defnote)?(\\b[\\w\\s]+)?\\s*\\]",
+			"begin": "\\[begin(:note)(@defnote|@tail)?(\\b[\\w\\s]+)?\\s*\\]",
 			"end": "\\[end(\\1)\\]",
 			"captures": {
 				"1": { "name": "support.function.redoc" },
