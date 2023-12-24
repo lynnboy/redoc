@@ -470,10 +470,11 @@
 		"math": {
 			"name": "markup.region.tag.redoc",
 			"contentName": "markup.region.math.redoc",
-			"begin": "\\[math(:aligned)?\\]",
+			"begin": "\\[math(:aligned)?(@[-a-zA-Z0-9:*]+)?\\]",
 			"end": "\\[math:end\\]",
 			"captures": {
-				"1": { "name": "support.function.redoc" }
+				"1": { "name": "support.function.redoc" },
+				"2": { "name": "support.class.redoc" }
 			},
 			"patterns": [
 				{ "include": "$self" }
