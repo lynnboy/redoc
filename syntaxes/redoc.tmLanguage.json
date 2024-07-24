@@ -17,6 +17,7 @@
 		{ "include": "#syntax" },
 		{ "include": "#table" },
 		{ "include": "#math" },
+		{ "include": "#formula" },
 		{ "include": "#macro" },
 		{ "include": "#directive" },
 		{ "include": "#langtag" },
