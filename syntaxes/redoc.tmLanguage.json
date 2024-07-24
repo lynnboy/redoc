@@ -168,7 +168,7 @@
 			]
 		},
 		"ref": {
-			"match": "\\[#(?:(:note|:tab|:fig|:fn|:cite))?(@(?:super))?#?(?:[-a-zA-Z.:$0-9]*|(\\[=(\\w+)\\]))\\]",
+			"match": "\\[#(?:(:note|:tab|:fig|:fn|:cite|:eq))?(@(?:super))?#?(?:[-a-zA-Z.:$0-9]*|(\\[=(\\w+)\\]))\\]",
 			"name": "markup.ref.redoc",
 			"captures": {
 				"1": { "name": "support.function.redoc" },
@@ -475,6 +475,20 @@
 			"captures": {
 				"1": { "name": "support.function.redoc" },
 				"2": { "name": "support.class.redoc" }
+			},
+			"patterns": [
+				{ "include": "$self" }
+			]
+		},
+		"formula": {
+			"name": "markup.region.tag.redoc",
+			"contentName": "markup.region.math.redoc",
+			"begin": "\\[formula(:aligned)?(@[-a-zA-Z0-9:*]+)?(#[-a-zA-Z.:$0-9]+)\\]",
+			"end": "\\[formula:end\\]",
+			"captures": {
+				"1": { "name": "support.function.redoc" },
+				"2": { "name": "support.class.redoc" },
+				"3": { "name": "markup.name.redoc" }
 			},
 			"patterns": [
 				{ "include": "$self" }
