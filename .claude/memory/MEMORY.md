@@ -1,0 +1,3 @@
+- [用户角色](user-role.md) — C++ 标准中译本维护者；三个工作空间（draft/loc-iso14882/redoc）的关系
+- [聚焦要求](feedback-focus.md) — 一次一个明确任务，不自我循环；多方向时列选项让用户定
+- [redoc 工具链进度](project-redoc-toolchain.md) — Rust 骨架已提交；内存纪律与语料测试是硬约束

@@ -47,7 +47,18 @@ crates/core   tokenizer → parser → AST → validate（无依赖，纯核心�
 crates/cli    redoc parse / redoc check 命令
 spec/         格式规范 spec.md
 syntaxes/     VSCode 扩展的 TextMate 语法（与 Rust 解析器独立，已知有偏差）
+.claude/      项目记忆（随 git 管理）
 ```
+
+## 记忆管理
+
+会话记忆双写两处，需保持一致：
+
+1. 自动记忆（Claude Code 运行时读取）：
+   `~/.claude/projects/c--Users-yinan-li-source-loc-iso14882/memory/`
+2. 项目版本管理副本：本仓库 `.claude/memory/`（修改自动记忆后同步复制）
+
+项目基准与约定见根目录 CLAUDE.md 与 `spec/spec.md`。
 
 关键解析规则（详见 spec/spec.md）：
 
