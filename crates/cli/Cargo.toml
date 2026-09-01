@@ -1,0 +1,13 @@
+[package]
+name = "redoc-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Command-line tools for redoc: parse and validate"
+
+[[bin]]
+name = "redoc"
+path = "src/main.rs"
+
+[dependencies]
+redoc-core = { path = "../core" }

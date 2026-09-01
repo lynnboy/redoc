@@ -1,2 +1,13 @@
-node_modules
+# Node / VSCode extension
+node_modules/
 *.vsix
+
+# Rust
+target/
+
+# Temporary / generated
+*.log
+err.txt
+out.txt
+check_out.txt
+check_err.txt
