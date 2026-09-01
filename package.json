@@ -1,32 +1,47 @@
 {
-    "name": "redoc",
-    "displayName": "redoc",
-    "description": "My own 'redoc' language support.",
-    "version": "0.0.1",
-    "engines": {
-        "vscode": "^1.55.0"
-    },
-    "categories": [
-        "Programming Languages"
-    ],
-    "contributes": {
-        "languages": [{
-            "id": "redoc",
-            "aliases": ["redoc", "redoc"],
-            "extensions": [".redoc"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "scopeName": "text.redoc-injection",
-            "path": "./syntaxes/redoc-inj.json",
-            "injectTo": ["source.cpp"]
-        }, {
-            "language": "redoc",
-            "scopeName": "text.redoc",
-            "path": "./syntaxes/redoc.tmLanguage.json",
-            "embeddedLanguages": {
-                "meta.embedded.block.cpp": "cpp"
-            }
-        }]
-    }
+	"name": "redoc",
+	"displayName": "redoc",
+	"description": "My own 'redoc' language support.",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.55.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"contributes": {
+		"languages": [
+			{
+				"id": "redoc",
+				"aliases": [
+					"redoc",
+					"redoc"
+				],
+				"extensions": [
+					".redoc"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"scopeName": "text.redoc-injection",
+				"path": "./syntaxes/redoc-inj.json",
+				"injectTo": [
+					"source.cpp"
+				]
+			},
+			{
+				"language": "redoc",
+				"scopeName": "text.redoc",
+				"path": "./syntaxes/redoc.tmLanguage.json",
+				"embeddedLanguages": {
+					"meta.embedded.block.cpp": "cpp"
+				}
+			}
+		]
+	},
+	"__metadata": {
+		"size": 205789
+	}
 }
